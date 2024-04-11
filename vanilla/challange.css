@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #1B1B1F;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Roboto Mono";
+  color: #FFFFFF;
+}
+
+header {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  text-transform: capitalize;
+}
+
+main {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10rem;
+}
+main > p {
+  font-size: 2rem;
+}
+main > .bar {
+  width: 60%;
+  height: 2%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0.25rem;
+}
+main > .bar > .fill {
+  width: 20%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: white;
+  position: relative;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+main > .bar > .fill > .slider {
+  width: 7rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid #FFFFFF;
+  background-color: #1B1B1F;
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  main > .bar {
+    height: 1%;
+  }
+  main > .bar > .fill > .slider {
+    width: 5rem;
+    border: 3px solid #FFFFFF;
+  }
+}
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  main {
+    gap: 3rem;
+  }
+  main > p {
+    font-size: 1.5rem;
+  }
+  main > .bar {
+    width: 1%;
+    height: 70%;
+    display: flex;
+    align-items: end;
+  }
+  main > .bar > .fill {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+  }
+  main > .bar > .fill > .slider {
+    position: absolute;
+    width: 5rem;
+  }
+}
+@media (max-width: 450px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/*# sourceMappingURL=challange.css.map */
