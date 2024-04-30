@@ -15,7 +15,7 @@ export const useDataStore = defineStore('dataStore', () => {
         },
         "Scooter": {
             name: "Scooter",
-            speed: 1,
+            speed: 10,
             count: 0,
             price: 10,
             auto: false,
@@ -55,6 +55,68 @@ export const useDataStore = defineStore('dataStore', () => {
         }
     });
 
+    const airItems = ref({
+        "Parashoot": {
+            name: "Parashoot",
+            speed: 1,
+            count: 0,
+            price: 5,
+            auto: false,
+            locked: false
+        },
+        "Paraglide": {
+            name: "Paraglide",
+            speed: 1,
+            count: 0,
+            price: 10,
+            auto: false,
+            locked: true
+        },
+        "Cesna": {
+            name: "Cesna",
+            speed: 1,
+            count: 0,
+            price: 25,
+            auto: false,
+            locked: true
+        },
+        "Boeing": {
+            name: "Boeing",
+            speed: 1,
+            count: 0,
+            price: 50,
+            auto: false,
+            locked: true
+        }
+    });
+
+    const waterItems = ref({
+        "Swimsuit": {
+            name: "Swimsuit",
+            speed: 1,
+            count: 0,
+            price: 5000,
+            auto: false,
+            locked: false
+        },
+        "Surfboard": {
+            name: "Surfboard",
+            speed: 1,
+            count: 0,
+            price: 50000,
+            auto: false,
+            locked: true
+        },
+        "Water Scooter": {
+            name: "Water Scooter",
+            speed: 1,
+            count: 0,
+            price: 250000,
+            auto: false,
+            locked: true
+        }
+    });
+
     const distanceStr = computed(() => {
         if (distance.value < 1000) return `${distance.value}m`;
         else {
@@ -63,5 +125,5 @@ export const useDataStore = defineStore('dataStore', () => {
         };
     });
 
-    return { distance, distanceStr, groundItems };
+    return { distance, distanceStr, groundItems, airItems, waterItems };
 })

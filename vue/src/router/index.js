@@ -11,7 +11,7 @@ const router = createRouter({
       component: Clicker
     },
     {
-      path: '/challenge',
+      path: '/challenge/:type/:item/:speed/:count',
       component: Challenge
     }
   ]

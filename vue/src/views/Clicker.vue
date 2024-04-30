@@ -17,13 +17,25 @@
             <article class="shop">
                 <section class="wrapper">
                     <section class="nav">
-                        <section class="ground">ground</section>
-                        <section class="air">air</section>
-                        <section class="water">water</section>
+                        <section :class="{ 'selected': selectedTab == 'ground' }" @click="selectTab(`ground`)"
+                            class="ground">ground</section>
+                        <section :class="{ 'selected': selectedTab == 'air' }" @click="selectTab(`air`)" class="air">air
+                        </section>
+                        <section :class="{ 'selected': selectedTab == 'water' }" @click="selectTab(`water`)" class="water">
+                            water</section>
                     </section>
                     <ul class="purchase">
-                        <Item v-for="(item, i) in dataStore.groundItems" :name="item.name" :speed="item.speed"
-                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" @click="buyItem(item.name, 1, item.locked)" />
+                        <item :style="{'display': selectedTab == `ground` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.groundItems"
+                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
+                            :auto="item.auto" :locked="item.locked" :type="1" />
+
+                        <Item :style="{'display': selectedTab == `air` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.airItems"
+                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
+                            :auto="item.auto" :locked="item.locked" :type="2" />
+
+                        <Item :style="{'display': selectedTab == `water` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.waterItems"
+                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
+                            :auto="item.auto" :locked="item.locked" :type="3" />
                     </ul>
                 </section>
             </article>
@@ -32,6 +44,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 import { useDataStore } from '@/stores/dataStore';
 import { useActionStore } from '@/stores/actionStore';
 
@@ -47,6 +61,10 @@ function distClick() {
 function buyItem(itemName, type, locked) {
     actionStore.buyItem(itemName, type, locked);
 }
+
+const selectedTab = ref("ground");
+
+function selectTab(val) { selectedTab.value = val; }
 </script>
 
 <style scoped lang="scss">
@@ -153,7 +171,15 @@ main {
                 outline: solid 5px;
                 border-radius: 1rem 1rem 0 0;
 
-                z-index: 100;
+                z-index: 0;
+                transition: 0.3s;
+            }
+
+            >.selected {
+                background-color: #FFFFFF;
+                color: #1B1B1F;
+                outline: solid 5px #FFFFFF;
+                transition: 0.3s;
             }
         }
 
@@ -169,6 +195,8 @@ main {
             gap: 1rem;
 
             overflow-y: auto;
+
+            padding-top: 1rem;
         }
     }
 }

@@ -1,16 +1,18 @@
 <template>
     <section class="product" v-if="!locked">
-        <section :style="{ width: auto ? '50%' : '48%' }">
+        <section :style="{ width: auto ? '50%' : '45%' }"  @click="buyItem()">
             <h3>{{ props.name }}</h3>
             <p>{{ props.speed }}m/s</p>
         </section>
-        <section :style="{ width: auto ? '50%' : '48%' }">
+        <section :style="{ width: auto ? '50%' : '45%' }"  @click="buyItem()">
             <h3>{{ props.count }}</h3>
             <p>{{ props.price }}m</p>
         </section>
         <div class="play" v-if="!auto">
-            <i class="fa-solid fa-play"></i>
+            <i class="fa-solid fa-play" @click="loadItem()"></i>
+            <i class="fa-solid fa-bullseye" @click="tryChallenge()"></i>
         </div>
+        <div class="load" :class="{ 'animate': loading }"></div>
     </section>
     <section class="lock" v-else>
         <i class="fa-solid fa-lock"></i>
@@ -18,14 +20,53 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useDataStore } from '@/stores/dataStore';
+import { useActionStore } from '@/stores/actionStore';
+
+const dataStore = useDataStore();
+const actionStore = useActionStore();
+
+const router = useRouter();
+
 const props = defineProps({
     name: String,
     speed: Number,
     count: Number,
     price: Number,
     auto: Boolean,
-    locked: Boolean
+    locked: Boolean,
+    type: Number
 });
+
+const loading = ref(false);
+
+function loadItem() {
+    if (!loading.value && props.count > 0) {
+        loading.value = true;
+        setTimeout(() => {
+            loading.value = false;
+            dataStore.distance += props.speed * props.count;
+        }, 1000);
+    }
+}
+
+watch(loading, () => {
+    if (props.auto) {
+        loadItem();
+    }
+})
+
+loadItem();
+
+function buyItem() {
+    actionStore.buyItem(props.name, props.type, props.locked);
+}
+
+function tryChallenge(){
+    router.push(`/challenge/${props.type}/${props.name}/${props.speed}/${props.count}`)
+}
 </script>
 
 <style scoped lang="scss">
@@ -35,11 +76,9 @@ const props = defineProps({
     height: 15%;
     flex-shrink: 0;
 
-    border-radius: 0.5rem;
+    position: relative;
 
-    &:first-child {
-        margin-top: 1rem;
-    }
+    border-radius: 0.5rem;
 
     display: flex;
     justify-content: center;
@@ -53,6 +92,8 @@ const props = defineProps({
         justify-content: center;
         flex-direction: column;
         gap: 0.5rem;
+
+        z-index: 5;
 
         &:first-child {
             align-items: start;
@@ -84,12 +125,32 @@ const props = defineProps({
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
+        gap: 0.5rem;
         font-size: 2rem;
-        transition: 0.1s;
+        z-index: 5;
 
-        &:active{
+        i {
             transition: 0.1s;
-            filter: invert(50%);
+
+            &:active {
+                transition: 0.1s;
+                filter: invert(50%);
+            }
+        }
+    }
+
+    .load {
+        width: 0%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.15);
+        position: absolute;
+        left: 0;
+
+        &.animate {
+            animation-name: loadItemAnim;
+            animation-timing-function: ease;
+            animation-duration: 1s;
         }
     }
 }
@@ -118,5 +179,10 @@ const props = defineProps({
             font-size: 1.5rem;
         }
     }
+}
+
+@keyframes loadItemAnim {
+    from {width: 0%;}
+    to {width: 100%;}
 }
 </style>
