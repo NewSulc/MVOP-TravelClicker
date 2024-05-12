@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
 
 import { useDataStore } from './dataStore';
+import { useSaveStore } from './saveStore';
 
 export const useActionStore = defineStore('actionStore', () => {
     const dataStore = useDataStore();
+    const saveStore = useSaveStore();
 
     const addDistance = (dist) => {
         dataStore.distance += dist;

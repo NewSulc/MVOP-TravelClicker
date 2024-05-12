@@ -45,17 +45,21 @@
 
 <script setup>
 import { ref } from 'vue';
+import { onMounted } from 'vue';
 
 import { useDataStore } from '@/stores/dataStore';
 import { useActionStore } from '@/stores/actionStore';
+import { useSaveStore } from '@/stores/saveStore'
 
 import Item from '@/components/Item.vue';
 
 const dataStore = useDataStore();
 const actionStore = useActionStore();
+const saveStore = useSaveStore();
 
 function distClick() {
     actionStore.addDistance(1);
+    saveStore.saveDistance();
 }
 
 function buyItem(itemName, type, locked) {
@@ -65,6 +69,13 @@ function buyItem(itemName, type, locked) {
 const selectedTab = ref("ground");
 
 function selectTab(val) { selectedTab.value = val; }
+
+onMounted(() => {
+    saveStore.loadDistance();
+    saveStore.loadAirItems();
+    saveStore.loadGroundItems();
+    saveStore.loadWaterItems();
+})
 </script>
 
 <style scoped lang="scss">
