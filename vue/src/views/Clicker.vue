@@ -4,6 +4,8 @@
             <h1>travel clicker</h1>
         </header>
         <main>
+            <i id="settings" class="fa-solid fa-gear" @click="pushRouter('/settings')"></i>
+
             <article class="clicker">
                 <section class="smallValue">
                     <p class="currency">{{ dataStore.distanceStr }}</p>
@@ -21,21 +23,22 @@
                             class="ground">ground</section>
                         <section :class="{ 'selected': selectedTab == 'air' }" @click="selectTab(`air`)" class="air">air
                         </section>
-                        <section :class="{ 'selected': selectedTab == 'water' }" @click="selectTab(`water`)" class="water">
+                        <section :class="{ 'selected': selectedTab == 'water' }" @click="selectTab(`water`)"
+                            class="water">
                             water</section>
                     </section>
                     <ul class="purchase">
-                        <item :style="{'display': selectedTab == `ground` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.groundItems"
-                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
-                            :auto="item.auto" :locked="item.locked" :type="1" />
+                        <item :style="{ 'display': selectedTab == `ground` ? 'flex' : 'none' }"
+                            v-for="(item, i) in dataStore.groundItems" :name="item.name" :speed="item.speed"
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="1" />
 
-                        <Item :style="{'display': selectedTab == `air` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.airItems"
-                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
-                            :auto="item.auto" :locked="item.locked" :type="2" />
+                        <Item :style="{ 'display': selectedTab == `air` ? 'flex' : 'none' }"
+                            v-for="(item, i) in dataStore.airItems" :name="item.name" :speed="item.speed"
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="2" />
 
-                        <Item :style="{'display': selectedTab == `water` ? 'flex' : 'none'}" v-for="(item, i) in dataStore.waterItems"
-                            :name="item.name" :speed="item.speed" :count="item.count" :price="item.price"
-                            :auto="item.auto" :locked="item.locked" :type="3" />
+                        <Item :style="{ 'display': selectedTab == `water` ? 'flex' : 'none' }"
+                            v-for="(item, i) in dataStore.waterItems" :name="item.name" :speed="item.speed"
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="3" />
                     </ul>
                 </section>
             </article>
@@ -50,6 +53,9 @@ import { onMounted } from 'vue';
 import { useDataStore } from '@/stores/dataStore';
 import { useActionStore } from '@/stores/actionStore';
 import { useSaveStore } from '@/stores/saveStore'
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 import Item from '@/components/Item.vue';
 
@@ -70,11 +76,14 @@ const selectedTab = ref("ground");
 
 function selectTab(val) { selectedTab.value = val; }
 
+function pushRouter(path) { router.push(path); }
+
 onMounted(() => {
     saveStore.loadDistance();
     saveStore.loadAirItems();
     saveStore.loadGroundItems();
     saveStore.loadWaterItems();
+    saveStore.loadSettings();
 })
 </script>
 
@@ -87,6 +96,24 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    position: relative;
+
+    #settings {
+        color: #FFFFFF;
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        margin: 2rem;
+        font-size: 2.5rem;
+        transition: 0.25s;
+
+        &:hover {
+            transform: scale(0.95);
+            transition: 0.25s;
+            filter: contrast(0.5);
+        }
+    }
 }
 
 header {

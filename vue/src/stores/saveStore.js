@@ -21,6 +21,10 @@ export const useSaveStore = defineStore('saveStore', () => {
         localStorage.setItem("airItems", JSON.stringify(dataStore.airItems))
     };
 
+    const saveSettings = () => {
+        localStorage.setItem("settings", JSON.stringify(dataStore.settings))
+    };
+
     const loadDistance = () => {
         if(localStorage.getItem("distance") != null) dataStore.distance = Number(localStorage.getItem("distance"));
     }
@@ -37,14 +41,20 @@ export const useSaveStore = defineStore('saveStore', () => {
         if(localStorage.getItem("airItems") != null) dataStore.airItems = JSON.parse(localStorage.getItem("airItems"))
     };
 
+    const loadSettings = () => {
+        if(localStorage.getItem("settings") != null) dataStore.settings = JSON.parse(localStorage.getItem("settings"))
+    };
+
     return {
         saveDistance,
         saveGroundItems,
         saveWaterItems,
         saveAirItems,
+        saveSettings,
         loadDistance,
         loadGroundItems,
         loadAirItems,
-        loadWaterItems
+        loadWaterItems,
+        loadSettings
     };
 })

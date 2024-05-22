@@ -125,5 +125,10 @@ export const useDataStore = defineStore('dataStore', () => {
         };
     });
 
-    return { distance, distanceStr, groundItems, airItems, waterItems };
+    const settings = ref({
+        sound: true,
+        music: true
+    })
+
+    return { distance, distanceStr, groundItems, airItems, waterItems, settings };
 })
