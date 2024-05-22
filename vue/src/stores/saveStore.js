@@ -10,31 +10,31 @@ export const useSaveStore = defineStore('saveStore', () => {
     };
 
     const saveGroundItems = () => {
-        localStorage.setItem("groundItems", dataStore.groundItems)
+        localStorage.setItem("groundItems", JSON.stringify(dataStore.groundItems))
     };
 
     const saveWaterItems = () => {
-        localStorage.setItem("waterItems", dataStore.waterItems)
+        localStorage.setItem("waterItems", JSON.stringify(dataStore.waterItems))
     };
 
     const saveAirItems = () => {
-        localStorage.setItem("airItems", dataStore.airItems)
+        localStorage.setItem("airItems", JSON.stringify(dataStore.airItems))
     };
 
     const loadDistance = () => {
-        if(localStorage.getItem("distance") != null) dataStore.distance = localStorage.getItem("distance");
+        if(localStorage.getItem("distance") != null) dataStore.distance = Number(localStorage.getItem("distance"));
     }
 
     const loadGroundItems = () => {
-        if(localStorage.getItem("groundItems") != null) dataStore.airItems = localStorage.getItem("groundItems")
+        if(localStorage.getItem("groundItems") != null) dataStore.groundItems = JSON.parse(localStorage.getItem("groundItems"))
     };
 
     const loadWaterItems = () => {
-        if(localStorage.getItem("waterItems") != null) dataStore.airItems = localStorage.getItem("waterItems")
+        if(localStorage.getItem("waterItems") != null) dataStore.waterItems = JSON.parse(localStorage.getItem("waterItems"))
     };
 
     const loadAirItems = () => {
-        if(localStorage.getItem("airItems") != null) dataStore.airItems = localStorage.getItem("airItems")
+        if(localStorage.getItem("airItems") != null) dataStore.airItems = JSON.parse(localStorage.getItem("airItems"))
     };
 
     return {

@@ -41,7 +41,7 @@ watch(clickedPercentage, () => {
     if (clickedPercentage.value >= 100 ) {
         if(router.currentRoute.value.params.type == 1){
             dataStore.groundItems[router.currentRoute.value.params.item].auto = true;
-            router.push("/")
+            router.push("/");
         }        
     }
 })

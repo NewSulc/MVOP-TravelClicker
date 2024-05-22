@@ -19,6 +19,8 @@ export const useActionStore = defineStore('actionStore', () => {
 
                 const nextItem = dataStore.groundItems[Object.keys(dataStore.groundItems)[Object.keys(dataStore.groundItems).indexOf(itemName) + 1]]
                 if (nextItem != undefined && nextItem.locked && dataStore.groundItems[itemName].count >= 5) nextItem.locked = false;
+
+                saveStore.saveGroundItems();
             }
         }
         else if(type == 2 && locked == false) {
@@ -28,6 +30,8 @@ export const useActionStore = defineStore('actionStore', () => {
 
                 const nextItem = dataStore.airItems[Object.keys(dataStore.airItems)[Object.keys(dataStore.airItems).indexOf(itemName) + 1]]
                 if (nextItem != undefined && nextItem.locked && dataStore.airItems[itemName].count >= 5) nextItem.locked = false;
+
+                saveStore.saveAirItems();
             }
         }
         else {
@@ -37,6 +41,8 @@ export const useActionStore = defineStore('actionStore', () => {
 
                 const nextItem = dataStore.waterItems[Object.keys(dataStore.waterItems)[Object.keys(dataStore.waterItems).indexOf(itemName) + 1]]
                 if (nextItem != undefined && nextItem.locked && dataStore.waterItems[itemName].count >= 5) nextItem.locked = false;
+
+                saveStore.saveWaterItems();
             }
         }
     };
