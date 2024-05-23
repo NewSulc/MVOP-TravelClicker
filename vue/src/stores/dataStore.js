@@ -4,6 +4,8 @@ import { defineStore } from 'pinia'
 export const useDataStore = defineStore('dataStore', () => {
     const distance = ref(0);
 
+    const autoSpeed = ref(0)
+
     const groundItems = ref({
         "Shoes": {
             name: "Shoes",
@@ -125,10 +127,18 @@ export const useDataStore = defineStore('dataStore', () => {
         };
     });
 
+    const autoSpeedStr = computed(() => {
+        if (autoSpeed.value < 1000) return `${autoSpeed.value}m`;
+        else {
+            const speedVal = String(Math.floor(autoSpeed.value / 100));
+            return `${speedVal.slice(0, speedVal.length - 1) + '.' + speedVal.slice(speedVal.length - 1)}km`;
+        };
+    });
+
     const settings = ref({
         sound: true,
         music: true
     })
 
-    return { distance, distanceStr, groundItems, airItems, waterItems, settings };
+    return { distance, distanceStr, autoSpeed, autoSpeedStr, groundItems, airItems, waterItems, settings };
 })

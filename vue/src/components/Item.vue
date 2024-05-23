@@ -1,10 +1,10 @@
 <template>
     <section class="product" v-if="!locked">
-        <section :style="{ width: auto ? '50%' : '45%' }"  @click="buyItem()">
+        <section :style="{ width: auto ? '50%' : '45%' }" @click="buyItem()">
             <h3>{{ props.name }}</h3>
             <p>{{ props.speed }}m/s</p>
         </section>
-        <section :style="{ width: auto ? '50%' : '45%' }"  @click="buyItem()">
+        <section :style="{ width: auto ? '50%' : '45%' }" @click="buyItem()">
             <h3>{{ props.count }}</h3>
             <p>{{ props.price }}m</p>
         </section>
@@ -21,12 +21,15 @@
 
 <script setup>
 import { ref, watch } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDataStore } from '@/stores/dataStore';
 import { useActionStore } from '@/stores/actionStore';
+import { useSaveStore } from '@/stores/saveStore';
 
 const dataStore = useDataStore();
 const actionStore = useActionStore();
+const saveStore = useSaveStore();
 
 const router = useRouter();
 
@@ -48,23 +51,26 @@ function loadItem() {
         setTimeout(() => {
             loading.value = false;
             dataStore.distance += props.speed * props.count;
+            saveStore.saveDistance();
         }, 1000);
     }
 }
 
-watch(loading, () => {
-    if (props.auto) {
-        loadItem();
-    }
-})
-
 loadItem();
+
+onMounted(() => {
+    loadItem();
+})
 
 function buyItem() {
     actionStore.buyItem(props.name, props.type, props.locked);
+    if (props.auto) {
+        dataStore.autoSpeed += props.speed;
+        saveStore.saveAutoSpeed();
+    }
 }
 
-function tryChallenge(){
+function tryChallenge() {
     router.push(`/challenge/${props.type}/${props.name}/${props.speed}/${props.count}`)
 }
 </script>
@@ -182,7 +188,12 @@ function tryChallenge(){
 }
 
 @keyframes loadItemAnim {
-    from {width: 0%;}
-    to {width: 100%;}
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
 }
 </style>

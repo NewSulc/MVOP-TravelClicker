@@ -4,14 +4,15 @@
             <h1>Auto Clicker Challenge</h1>
         </header>
         <main>
-            <p class="lenght">{{clickedValue}}m/{{ router.currentRoute.value.params.speed * 100 }}m</p>
+            <p class="lenght">{{ clickedValue }}m/{{ router.currentRoute.value.params.speed * 100 }}m</p>
             <div class="bar">
-                <div class="fill" :style="{'width': clickedPercentage + '%'}">
+                <div class="fill" :style="{ 'width': clickedPercentage + '%' }">
                     <div class="slider"></div>
                 </div>
             </div>
             <p class="multi">
-                {{router.currentRoute.value.params.count}} {{router.currentRoute.value.params.item}} = {{router.currentRoute.value.params.count * 0.1 + 1}}x
+                {{ router.currentRoute.value.params.count }} {{ router.currentRoute.value.params.item }} =
+                {{ router.currentRoute.value.params.count * 10 }}x <!-- změnit konsattnu na 0.1 -->
             </p>
 
             <div class="clicker" @click="addClick()"></div>
@@ -23,26 +24,40 @@
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDataStore } from '@/stores/dataStore';
+import { useSaveStore } from '@/stores/saveStore';
 
 const router = useRouter();
 const clickedValue = ref(0);
 
 const dataStore = useDataStore();
+const saveStore = useSaveStore();
 
-function addClick(){
-    clickedValue.value += (router.currentRoute.value.params.count * 0.1 + 1) * router.currentRoute.value.params.speed;
+function addClick() {
+    clickedValue.value += (router.currentRoute.value.params.count * 10) * router.currentRoute.value.params.speed; //změnit konsattnu na 0.1
 }
 
 const clickedPercentage = computed(() => {
-  return (clickedValue.value/100)/router.currentRoute.value.params.speed * 100;
+    return (clickedValue.value / 100) / router.currentRoute.value.params.speed * 100;
 })
 
 watch(clickedPercentage, () => {
-    if (clickedPercentage.value >= 100 ) {
-        if(router.currentRoute.value.params.type == 1){
+    if (clickedPercentage.value >= 100) {
+        if (router.currentRoute.value.params.type == 1) {
             dataStore.groundItems[router.currentRoute.value.params.item].auto = true;
-            router.push("/");
-        }        
+            saveStore.saveGroundItems();
+        }
+        else if (router.currentRoute.value.params.type == 2) {
+            dataStore.airItems[router.currentRoute.value.params.item].auto = true;
+            saveStore.saveAirItems();
+        }
+        else {
+            dataStore.waterItems[router.currentRoute.value.params.item].auto = true;
+            saveStore.saveWaterItems();
+        }
+
+        dataStore.autoSpeed = + (router.currentRoute.value.params.count) * router.currentRoute.value.params.speed;
+        saveStore.saveAutoSpeed();
+        router.push("/");
     }
 })
 </script>
@@ -118,7 +133,7 @@ main {
         }
     }
 
-    >.clicker{
+    >.clicker {
         width: 100%;
         height: 100%;
         position: absolute;

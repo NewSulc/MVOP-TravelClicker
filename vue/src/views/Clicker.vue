@@ -9,11 +9,11 @@
             <article class="clicker">
                 <section class="smallValue">
                     <p class="currency">{{ dataStore.distanceStr }}</p>
-                    <p class="speed">0m/s</p>
+                    <p class="speed">{{ dataStore.autoSpeedStr }}/s</p>
                 </section>
                 <p class="currency">{{ dataStore.distanceStr }}</p>
                 <section class="adder" @click="distClick"></section>
-                <p class="speed">0m/s</p>
+                <p class="speed">{{ dataStore.autoSpeedStr }}/s</p>
             </article>
 
             <article class="shop">
@@ -66,10 +66,7 @@ const saveStore = useSaveStore();
 function distClick() {
     actionStore.addDistance(1);
     saveStore.saveDistance();
-}
-
-function buyItem(itemName, type, locked) {
-    actionStore.buyItem(itemName, type, locked);
+    saveStore.saveLastAction();
 }
 
 const selectedTab = ref("ground");
@@ -80,11 +77,14 @@ function pushRouter(path) { router.push(path); }
 
 onMounted(() => {
     saveStore.loadDistance();
+    saveStore.loadAutoSpeed();
     saveStore.loadAirItems();
     saveStore.loadGroundItems();
     saveStore.loadWaterItems();
     saveStore.loadSettings();
 })
+
+
 </script>
 
 <style scoped lang="scss">
