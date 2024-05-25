@@ -10,7 +10,7 @@
         </section>
         <div class="play" v-if="!auto">
             <i class="fa-solid fa-play" @click="loadItem()"></i>
-            <i class="fa-solid fa-bullseye" @click="tryChallenge()"></i>
+            <i v-if="props.count > 0" class="fa-solid fa-bullseye" @click="tryChallenge()"></i>
         </div>
         <div class="load" :class="{ 'animate': loading }"></div>
     </section>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDataStore } from '@/stores/dataStore';
@@ -55,8 +55,6 @@ function loadItem() {
         }, 1000);
     }
 }
-
-loadItem();
 
 onMounted(() => {
     loadItem();

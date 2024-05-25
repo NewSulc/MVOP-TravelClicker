@@ -48,7 +48,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { onMounted } from 'vue';
 
 import { useDataStore } from '@/stores/dataStore';
 import { useActionStore } from '@/stores/actionStore';
@@ -74,17 +73,6 @@ const selectedTab = ref("ground");
 function selectTab(val) { selectedTab.value = val; }
 
 function pushRouter(path) { router.push(path); }
-
-onMounted(() => {
-    saveStore.loadDistance();
-    saveStore.loadAutoSpeed();
-    saveStore.loadAirItems();
-    saveStore.loadGroundItems();
-    saveStore.loadWaterItems();
-    saveStore.loadSettings();
-})
-
-
 </script>
 
 <style scoped lang="scss">

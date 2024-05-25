@@ -55,7 +55,8 @@ watch(clickedPercentage, () => {
             saveStore.saveWaterItems();
         }
 
-        dataStore.autoSpeed = + (router.currentRoute.value.params.count) * router.currentRoute.value.params.speed;
+        dataStore.autoSpeed += (router.currentRoute.value.params.count) * router.currentRoute.value.params.speed;
+        console.log((router.currentRoute.value.params.count) * router.currentRoute.value.params.speed)
         saveStore.saveAutoSpeed();
         router.push("/");
     }

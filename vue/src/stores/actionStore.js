@@ -8,7 +8,7 @@ export const useActionStore = defineStore('actionStore', () => {
     const saveStore = useSaveStore();
 
     const addDistance = (dist) => {
-        dataStore.distance += dist;
+        dataStore.distance = dataStore.distance + dist;
     };
 
     const buyItem = (itemName, type, locked) => {
