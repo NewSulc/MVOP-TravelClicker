@@ -40,7 +40,8 @@ const props = defineProps({
     price: Number,
     auto: Boolean,
     locked: Boolean,
-    type: Number
+    type: Number,
+    goal: Number
 });
 
 const loading = ref(false);
@@ -69,12 +70,13 @@ function buyItem() {
 }
 
 function tryChallenge() {
-    router.push(`/challenge/${props.type}/${props.name}/${props.speed}/${props.count}`)
+    router.push(`/challenge/${props.type}/${props.name}/${props.speed}/${props.count}/${props.goal}`)
 }
 </script>
 
 <style scoped lang="scss">
 .product {
+    user-select: none;
     border: 5px solid #FFFFFF;
     width: 90%;
     height: 15%;

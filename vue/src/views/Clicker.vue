@@ -30,15 +30,15 @@
                     <ul class="purchase">
                         <item :style="{ 'display': selectedTab == `ground` ? 'flex' : 'none' }"
                             v-for="(item, i) in dataStore.groundItems" :name="item.name" :speed="item.speed"
-                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="1" />
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="1" :goal="item.goal"/>
 
                         <Item :style="{ 'display': selectedTab == `air` ? 'flex' : 'none' }"
                             v-for="(item, i) in dataStore.airItems" :name="item.name" :speed="item.speed"
-                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="2" />
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="2" :goal="item.goal"/>
 
                         <Item :style="{ 'display': selectedTab == `water` ? 'flex' : 'none' }"
                             v-for="(item, i) in dataStore.waterItems" :name="item.name" :speed="item.speed"
-                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="3" />
+                            :count="item.count" :price="item.price" :auto="item.auto" :locked="item.locked" :type="3" :goal="item.goal"/>
                     </ul>
                 </section>
             </article>
@@ -129,6 +129,7 @@ main {
 }
 
 .clicker {
+    user-select: none;
     height: 100%;
     width: 40%;
 

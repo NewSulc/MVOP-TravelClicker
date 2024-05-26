@@ -68,7 +68,7 @@ function loadAutoClicker(){
     <div class="popup" v-if="!started" @click="started = true">
         <h1>Offline:</h1>
         <p v-if="loaded">{{ timeOffline }}</p>
-        <p v-if="loaded">{{ offlineDistance }} * 0.1 = {{ Math.floor(offlineDistance * 0.1) }}</p>        
+        <p v-if="loaded">{{ offlineDistance }}m * 0.1 = {{ Math.floor(offlineDistance * 0.1) }}m</p>        
         <p v-if="!loaded">...</p>
         <p v-if="loaded">Click to start</p>
     </div>

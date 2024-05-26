@@ -1,10 +1,10 @@
 <template>
     <div class="body">
         <header>
-            <h1>Auto Clicker Challenge</h1>
+            <h1>{{ timeLeft }}</h1>
         </header>
         <main>
-            <p class="lenght">{{ clickedValue }}m/{{ router.currentRoute.value.params.speed * 100 }}m</p>
+            <p class="lenght">{{ Math.round(clickedValue * 10) / 10 }}m/{{ router.currentRoute.value.params.goal }}m</p>
             <div class="bar">
                 <div class="fill" :style="{ 'width': clickedPercentage + '%' }">
                     <div class="slider"></div>
@@ -12,7 +12,7 @@
             </div>
             <p class="multi">
                 {{ router.currentRoute.value.params.count }} {{ router.currentRoute.value.params.item }} =
-                {{ router.currentRoute.value.params.count * 10 }}x <!-- změnit konsattnu na 0.1 -->
+                {{ router.currentRoute.value.params.count * 0.1 }}x
             </p>
 
             <div class="clicker" @click="addClick()"></div>
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDataStore } from '@/stores/dataStore';
 import { useSaveStore } from '@/stores/saveStore';
@@ -33,11 +33,11 @@ const dataStore = useDataStore();
 const saveStore = useSaveStore();
 
 function addClick() {
-    clickedValue.value += (router.currentRoute.value.params.count * 10) * router.currentRoute.value.params.speed; //změnit konsattnu na 0.1
+    clickedValue.value += (router.currentRoute.value.params.count * 0.1) * router.currentRoute.value.params.speed;
 }
 
 const clickedPercentage = computed(() => {
-    return (clickedValue.value / 100) / router.currentRoute.value.params.speed * 100;
+    return (clickedValue.value / 100) / router.currentRoute.value.params.goal * 100;
 })
 
 watch(clickedPercentage, () => {
@@ -56,11 +56,38 @@ watch(clickedPercentage, () => {
         }
 
         dataStore.autoSpeed += (router.currentRoute.value.params.count) * router.currentRoute.value.params.speed;
-        console.log((router.currentRoute.value.params.count) * router.currentRoute.value.params.speed)
         saveStore.saveAutoSpeed();
         router.push("/");
     }
 })
+
+const timeStart = ref(30);
+let intervalId = null;
+
+const timeLeft = computed(() => {
+    const minutes = Math.floor(timeStart.value / 60);
+    const seconds = timeStart.value % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+});
+
+const startCountdown = () => {
+    intervalId = setInterval(() => {
+        if (timeStart.value > 0) {
+            timeStart.value--;
+        } else {
+            clearInterval(intervalId);
+            router.push("/");
+        }
+    }, 1000);
+};
+
+onMounted(() => {
+    startCountdown();
+});
+
+onBeforeUnmount(() => {
+    clearInterval(intervalId);
+});
 </script>
 
 <style scoped lang="scss">
@@ -74,6 +101,7 @@ watch(clickedPercentage, () => {
     flex-direction: column;
 
     color: #FFFFFF;
+    user-select: none;
 }
 
 header {

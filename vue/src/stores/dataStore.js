@@ -13,7 +13,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 5,
             auto: false,
-            locked: false
+            locked: false,
+            goal: 1000
         },
         "Scooter": {
             name: "Scooter",
@@ -21,7 +22,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 10,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 10000
         },
         "Bike": {
             name: "Bike",
@@ -29,7 +31,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 25,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 50000
         },
         "Motorcycle": {
             name: "Motorcycle",
@@ -37,7 +40,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 50,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 100000
         },
         "Car": {
             name: "Car",
@@ -45,7 +49,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 100,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 500000
         },
         "Train": {
             name: "Train",
@@ -53,7 +58,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 250,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         }
     });
 
@@ -64,7 +70,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 5,
             auto: false,
-            locked: false
+            locked: false,
+            goal: 1000000
         },
         "Paraglide": {
             name: "Paraglide",
@@ -72,7 +79,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 10,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         },
         "Cesna": {
             name: "Cesna",
@@ -80,7 +88,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 25,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         },
         "Boeing": {
             name: "Boeing",
@@ -88,7 +97,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 50,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         }
     });
 
@@ -99,7 +109,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 5000,
             auto: false,
-            locked: false
+            locked: false,
+            goal: 1000000
         },
         "Surfboard": {
             name: "Surfboard",
@@ -107,7 +118,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 50000,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         },
         "Water Scooter": {
             name: "Water Scooter",
@@ -115,7 +127,8 @@ export const useDataStore = defineStore('dataStore', () => {
             count: 0,
             price: 250000,
             auto: false,
-            locked: true
+            locked: true,
+            goal: 1000000
         }
     });
 
