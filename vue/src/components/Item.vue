@@ -2,11 +2,11 @@
     <section class="product" v-if="!locked">
         <section :style="{ width: auto ? '50%' : '45%' }" @click="buyItem()">
             <h3>{{ props.name }}</h3>
-            <p>{{ props.speed }}m/s</p>
+            <p>{{ speedStr }}/s</p>
         </section>
         <section :style="{ width: auto ? '50%' : '45%' }" @click="buyItem()">
             <h3>{{ props.count }}</h3>
-            <p>{{ props.price }}m</p>
+            <p>{{ priceStr }}</p>
         </section>
         <div class="play" v-if="!auto">
             <i class="fa-solid fa-play" @click="loadItem()"></i>
@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDataStore } from '@/stores/dataStore';
@@ -72,6 +72,17 @@ function buyItem() {
 function tryChallenge() {
     router.push(`/challenge/${props.type}/${props.name}/${props.speed}/${props.count}/${props.goal}`)
 }
+
+function changeUnits(val) {
+    if (val < 1000) return `${val}m`;
+    else {
+        const distVal = String(Math.floor(val / 100));
+        return `${distVal.slice(0, distVal.length - 1) + '.' + distVal.slice(distVal.length - 1)}km`;
+    };
+}
+
+const priceStr = computed(() => { return changeUnits(props.price); });
+const speedStr = computed(() => { return changeUnits(props.speed); });
 </script>
 
 <style scoped lang="scss">

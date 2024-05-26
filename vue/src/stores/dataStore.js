@@ -11,52 +11,52 @@ export const useDataStore = defineStore('dataStore', () => {
             name: "Shoes",
             speed: 1,
             count: 0,
-            price: 5,
+            price: 10,
             auto: false,
             locked: false,
             goal: 1000
         },
         "Scooter": {
             name: "Scooter",
-            speed: 10,
+            speed: 5,
             count: 0,
-            price: 10,
+            price: 50,
             auto: false,
             locked: true,
             goal: 10000
         },
         "Bike": {
             name: "Bike",
-            speed: 1,
+            speed: 25,
             count: 0,
-            price: 25,
+            price: 100,
             auto: false,
             locked: true,
             goal: 50000
         },
         "Motorcycle": {
             name: "Motorcycle",
-            speed: 1,
+            speed: 250,
             count: 0,
-            price: 50,
+            price: 1000,
             auto: false,
             locked: true,
             goal: 100000
         },
         "Car": {
             name: "Car",
-            speed: 1,
+            speed: 1000,
             count: 0,
-            price: 100,
+            price: 10000,
             auto: false,
             locked: true,
             goal: 500000
         },
         "Train": {
             name: "Train",
-            speed: 1000,
+            speed: 2500,
             count: 0,
-            price: 250,
+            price: 20000,
             auto: false,
             locked: true,
             goal: 1000000
@@ -66,70 +66,106 @@ export const useDataStore = defineStore('dataStore', () => {
     const airItems = ref({
         "Parashoot": {
             name: "Parashoot",
-            speed: 1,
+            speed: 10000,
             count: 0,
-            price: 5,
+            price: 500000,
             auto: false,
             locked: false,
-            goal: 1000000
+            goal: 5000000
         },
         "Paraglide": {
             name: "Paraglide",
-            speed: 1,
+            speed: 50000,
             count: 0,
-            price: 10,
+            price: 1200000,
             auto: false,
             locked: true,
-            goal: 1000000
+            goal: 10000000
         },
         "Cesna": {
             name: "Cesna",
-            speed: 1,
+            speed: 75000,
             count: 0,
-            price: 25,
+            price: 2500000,
             auto: false,
             locked: true,
-            goal: 1000000
+            goal: 25000000
         },
         "Boeing": {
             name: "Boeing",
-            speed: 1,
+            speed: 150000,
             count: 0,
-            price: 50,
+            price: 7000000,
             auto: false,
             locked: true,
-            goal: 1000000
+            goal: 100000000
+        },
+        "SR-71": {
+            name: "SR-71",
+            speed: 300000,
+            count: 0,
+            price: 100000000,
+            auto: false,
+            locked: true,
+            goal: 250000000
         }
     });
 
     const waterItems = ref({
         "Swimsuit": {
             name: "Swimsuit",
-            speed: 1,
+            speed: 250000,
             count: 0,
-            price: 5000,
+            price: 75000000,
             auto: false,
             locked: false,
-            goal: 1000000
+            goal: 600000000
         },
         "Surfboard": {
             name: "Surfboard",
-            speed: 1,
+            speed: 700000,
             count: 0,
-            price: 50000,
+            price: 150000000,
             auto: false,
             locked: true,
-            goal: 1000000
+            goal: 850000000
         },
         "Water Scooter": {
             name: "Water Scooter",
-            speed: 1,
+            speed: 1250000,
             count: 0,
-            price: 250000,
+            price: 300000000,
             auto: false,
             locked: true,
-            goal: 1000000
-        }
+            goal: 1500000000
+        },
+        "Flyboard": {
+            name: "Flyboard",
+            speed: 2500000,
+            count: 0,
+            price: 150000000,
+            auto: false,
+            locked: true,
+            goal: 3000000000
+        },
+        "Submarine": {
+            name: "Submarine",
+            speed: 5000000,
+            count: 0,
+            price: 25000000,
+            auto: false,
+            locked: true,
+            goal: 6800000000
+        },
+        "Speed boat": {
+            name: "Speed boat",
+            speed: 10000000,
+            count: 0,
+            price: 100000000,
+            auto: false,
+            locked: true,
+            goal: 10000000000
+        },
     });
 
     const distanceStr = computed(() => {

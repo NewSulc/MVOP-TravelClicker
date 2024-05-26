@@ -12,7 +12,7 @@
             </div>
             <p class="multi">
                 {{ router.currentRoute.value.params.count }} {{ router.currentRoute.value.params.item }} =
-                {{ router.currentRoute.value.params.count * 0.1 }}x
+                {{ Math.round(router.currentRoute.value.params.count * 10) / 100 }}x
             </p>
 
             <div class="clicker" @click="addClick()"></div>
@@ -33,11 +33,11 @@ const dataStore = useDataStore();
 const saveStore = useSaveStore();
 
 function addClick() {
-    clickedValue.value += (router.currentRoute.value.params.count * 0.1) * router.currentRoute.value.params.speed;
+    clickedValue.value += (router.currentRoute.value.params.count) * router.currentRoute.value.params.speed;
 }
 
 const clickedPercentage = computed(() => {
-    return (clickedValue.value / 100) / router.currentRoute.value.params.goal * 100;
+    return (clickedValue.value) * 100 / router.currentRoute.value.params.goal;
 })
 
 watch(clickedPercentage, () => {

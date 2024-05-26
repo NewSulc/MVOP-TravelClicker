@@ -15,6 +15,7 @@
                     <hr v-if="!dataStore.settings.music">
                 </button>
             </div>
+            <button class="deleteData" @click="clearAllData()">Delete all data</button>
         </main>
     </div>
 </template>
@@ -35,6 +36,12 @@ function changeSettingSound(val) {
     if (val == "sound") dataStore.settings.sound = !dataStore.settings.sound;
     else dataStore.settings.music = !dataStore.settings.music;
     saveStore.saveSettings();
+}
+
+function clearAllData(){
+    localStorage.clear();
+    localStorage.clear();
+    location.reload();
 }
 </script>
 
@@ -89,6 +96,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    gap: 2rem;
 
     >.wrap {
         display: flex;
@@ -122,12 +131,24 @@ main {
             }
         }
     }
+
+    .deleteData {
+        background: none;
+        border: 3px solid white;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        transition: 0.25s;
+
+        &:hover {
+            transform: scale(0.95);
+            transition: 0.25s;
+            filter: contrast(0.5);
+        }
+    }
 }
-
-
-@media (max-width: 1400px) {}
-
-@media (max-width: 900px) {}
 
 @media (max-width: 675px) {
     header {
@@ -136,6 +157,7 @@ main {
 
         h1 {
             font-size: 2.2rem;
+            display: none;
         }
     }
 }
