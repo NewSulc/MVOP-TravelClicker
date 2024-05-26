@@ -12,7 +12,7 @@ const router = createRouter({
       component: Clicker
     },
     {
-      path: '/challenge/:type/:item/:speed/:count',
+      path: '/challenge/:type/:item/:speed/:count/:goal',
       component: Challenge
     },
     {
